@@ -1,0 +1,7 @@
+{
+  "name": "json-timeline",
+  "version": "0.0.0",
+  "description": "Render Interactive Timeline stored in JSON",
+  "bin": "json-timeline.js",
+  "license": "MIT"
+}

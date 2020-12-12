@@ -1,0 +1,17 @@
+{
+    "start": {
+        "month": 1,
+        "day": 1,
+        "year": 2000
+    },
+    "end": {
+        "month": 1,
+        "day": 5,
+        "year": 2001
+    },
+    "title": "Second",
+    "content": "Second Advent",
+    "tags": [
+        "Business"
+    ]
+}

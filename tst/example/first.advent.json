@@ -1,0 +1,12 @@
+{
+    "start": {
+        "month": 1,
+        "day": 1,
+        "year": 2000
+    },
+    "title": "First",
+    "content": "First Advent",
+    "tags": [
+        "Fun"
+    ]
+}
