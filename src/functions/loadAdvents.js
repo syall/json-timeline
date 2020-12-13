@@ -1,20 +1,24 @@
-const path = require('path');
+/**
+ * @module loadAdvents
+ */
 const fs = require('fs');
 const validateSchema = require('../schema/validateSchema');
 
-function loadAdvents(input) {
-    // Get Absolute Path
-    const dirPath = path.resolve(input);
-    // Check if Path is a Directory
-    if (!fs.lstatSync(dirPath).isDirectory()) {
-        throw new Error(`Path "${dirPath}" is not a directory`);
-    }
+/**
+ * @function
+ * @name loadAdvents
+ * @description Load and Validate Advents from Directory
+ * @param {string} dirPath Path to Advents Directory
+ * @returns {Object[]} Array of Valid Advents
+ * @throws An Error if Invalid Advents exist, printing the File Names
+ */
+function loadAdvents(dirPath) {
     // Process JSON Files
     const { valid, invalid, tags } = fs.readdirSync(dirPath)
-        // Filter *.advent.json Files
+        // Filter *.advent.js(on)? Files
         .filter(name => (
             fs.lstatSync(`${dirPath}/${name}`).isFile() &&
-            name.endsWith('.advent.json')
+            (name.endsWith('.advent.js') || name.endsWith('.advent.json'))
         ))
         // Load Advents
         .map(name => ({
@@ -39,8 +43,8 @@ function loadAdvents(input) {
     // Log Invalid Advents
     if (invalid.length !== 0) {
         throw new Error(
-            `Invalid Advents in "${input}"\n` +
-            invalid.map(name => `- ${input}/${name}`).join('\n')
+            `Invalid Advents in "${dirPath}"\n` +
+            invalid.map(name => `[ERROR]: - ${dirPath}/${name}`).join('\n')
         );
     }
     // Return Valid Advents

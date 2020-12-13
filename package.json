@@ -1,7 +1,27 @@
 {
   "name": "json-timeline",
-  "version": "0.0.0",
-  "description": "Render Interactive Timeline stored in JSON",
-  "bin": "json-timeline.js",
-  "license": "MIT"
+  "version": "0.0.2",
+  "description": "Generate Interactive Timelines stored in JSON Advents with Tags.",
+  "bin": "src/json-timeline.js",
+  "scripts": {
+    "test": "./src/json-timeline.js ./tst/example/ ./tst/output/",
+    "docs": "jsdoc ./src/ -c ./docs/config.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/syall/json-timeline.git"
+  },
+  "keywords": [
+    "JSON",
+    "Timeline",
+    "Tag",
+    "Interactive",
+    "Advent"
+  ],
+  "author": "Steven Yuan <s.yuan.all@gmail.com> (https://portfolio.syall.work)",
+  "license": "MIT",
+  "homepage": "https://json-timeline.syall.work",
+  "devDependencies": {
+    "jsdoc": "^3.6.6"
+  }
 }

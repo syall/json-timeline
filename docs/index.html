@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>json-timeline</h1>
+<h2>Overview</h2>
+<p>Generate Interactive Timelines stored in JSON Advents with Tags.</p>
+<h2>Usage</h2>
+<p>To install the command-line application:</p>
+<pre class="prettyprint source lang-shell"><code>npm install json-timeline
+</code></pre>
+<p>To use the command-line application:</p>
+<pre class="prettyprint source lang-shell"><code>json-timeline path/to/advents/ path/to/output/ [vf]
+</code></pre>
+<h3>Process</h3>
+<p>Advents are loaded from the <code>path/to/advents</code> directory to generate a HTML/CSS/JS template (<code>index.html</code>, <code>index.css</code>, <code>index.js</code>, <code>renderAdvents.js</code>, <code>advents.js</code>) in the <code>path/to/output</code> directory. Existing files that clash names with the generated files will not be overwritten by default except for <code>advents.js</code>.</p>
+<h3>Arguments</h3>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path/to/advents/</code></td>
+<td>Path to Advents Directory</td>
+</tr>
+<tr>
+<td><code>path/to/output/</code></td>
+<td>Path to Output Directory</td>
+</tr>
+<tr>
+<td><code>[vf]</code></td>
+<td><code>v</code>: verbose logging, <code>f</code>: force overwrites</td>
+</tr>
+</tbody>
+</table>
+<h2>Advents</h2>
+<p>Advents represent events in the timeline that each include a mandatory start date, title, content, and tags. An optional end date can also be supplied to change the date range in the rendered Advent DOM.</p>
+<p>Advents are stored as JSON objects in <code>*.advent.json</code> files or default exports of <code>*.advent.js</code> files in a directory specified in <code>path/to/advents/</code>.</p>
+<p>The Advent Schema can be found in <a href="./src/schema/schemas.js"><code>schemas.js</code></a>:</p>
+<pre class="prettyprint source lang-javascript"><code>// AdventSchema
+{
+  &quot;start&quot;: DateSchema,
+  &quot;end?&quot;: DateSchema,
+  &quot;title&quot;: String,
+  &quot;content&quot;: String,
+  &quot;tags&quot;: Array.of(String)
+}
+// DateSchema
+{
+  &quot;month&quot;: Number,
+  &quot;day&quot;: Number,
+  &quot;year&quot;: Number
+}
+</code></pre>
+<p>Examples of Advents can be found in <a href="./tst/example/"><code>tst/example/</code></a>.</p>
+<h2>Customization</h2>
+<p>By default, json-timeline generates a basic template that can be deployed as a static site (such as on GitHub pages). The template files can be edited safely after they have been generated once since running json-timeline again will not overwrite the edited files by default.</p>
+<ul>
+<li><code>index.html</code> provides a minimal HTML file</li>
+<li><code>index.css</code> provides styling for the rendered HTML</li>
+<li><code>index.js</code> is the entry point of the javascript</li>
+<li><code>renderedAdvents.js</code> dynamically generates HTML</li>
+<li><code>advents.js</code> provides the Advents and Tags and should NOT be edited</li>
+</ul>
+<p>As reference for writing custom HTML/CSS/JS extending the template, minimal HTML are listed below.</p>
+<h3>Timeline</h3>
+<pre class="prettyprint source lang-html"><code>&lt;body>
+  &lt;!-- Timeline Title -->
+  &lt;p class=&quot;timeline mono-text&quot;>Timeline&lt;/p>
+  &lt;!-- Tag Toggles -->
+  &lt;nav>&lt;/nav>
+  &lt;!-- Advent Groups -->
+  &lt;main>&lt;/main>
+&lt;/body>
+</code></pre>
+<h3>Tag Toggles DOM</h3>
+<pre class="prettyprint source lang-html"><code>&lt;nav>
+  &lt;!-- Tag Toggles Label and Visibility Toggler -->
+  &lt;p class=&quot;toggle-container-title mono-text&quot;>Tags [▼]&lt;/p>
+  &lt;!-- Tag Toggles Container -->
+  &lt;div class=&quot;toggles-container hidden&quot;>&lt;/div>
+&lt;/nav>
+</code></pre>
+<h3>Tag Toggle DOM</h3>
+<pre class="prettyprint source lang-html"><code>&lt;div class=&quot;toggles-container hidden&quot;>
+  &lt;!-- Tag Toggle Container -->
+  &lt;div class=&quot;toggle-container&quot;>
+    &lt;!-- Tag Toggle Checkbox -->
+    &lt;input type=&quot;checkbox&quot; checked=&quot;true&quot; class=&quot;tag-toggle&quot;>
+    &lt;!-- Tag Toggle Label -->
+    &lt;label class=&quot;tag-toggle-label mono-text&quot;>Tag Name&lt;/label>
+  &lt;/div>
+&lt;/div>
+</code></pre>
+<h3>Advent Group DOM</h3>
+<pre class="prettyprint source lang-html"><code>&lt;main>
+  &lt;!-- Advent Group -->
+  &lt;div class=&quot;group&quot;>
+    &lt;!-- Advent Group Date and Visibility Toggler -->
+    &lt;p class=&quot;group-date mono-text&quot;>1/1/1970 [▼]&lt;/p>
+    &lt;!-- Advent Group Container -->
+    &lt;div class=&quot;advents hidden&quot;>&lt;/div>
+  &lt;/div>
+&lt;/main>
+</code></pre>
+<h3>Advent DOM</h3>
+<pre class="prettyprint source lang-html"><code>&lt;div class=&quot;advents hidden&quot;>
+  &lt;!-- Advent -->
+  &lt;div class=&quot;advent&quot;>
+    &lt;!-- Advent Title -->
+    &lt;p class=&quot;title mono-text&quot;>Advent Title&lt;/p>
+    &lt;!-- Advent Date Range -->
+    &lt;p class=&quot;date mono-text&quot;>1/1/1970&lt;/p>
+    &lt;!-- Advent Tags -->
+    &lt;p class=&quot;tags mono-text&quot;>Tags:Tag1,Tag2&lt;/p>
+    &lt;!-- Advent Content -->
+    &lt;p class=&quot;content read-text&quot;>Output content here.&lt;/p>
+  &lt;/div>
+&lt;/div>
+</code></pre></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-advents.html">advents</a></li><li><a href="module-compareDates.html">compareDates</a></li><li><a href="module-groupAdvents.html">groupAdvents</a></li><li><a href="module-index.html">index</a></li><li><a href="module-isType.html">isType</a></li><li><a href="module-json-timeline.html">json-timeline</a></li><li><a href="module-loadAdvents.html">loadAdvents</a></li><li><a href="module-renderAdvents.html">renderAdvents</a></li><li><a href="module-schemas.html">schemas</a></li><li><a href="module-sortAdvents.html">sortAdvents</a></li><li><a href="module-validateSchema.html">validateSchema</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Dec 14 2020 23:14:56 GMT-0500 (Eastern Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

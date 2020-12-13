@@ -1,13 +1,16 @@
 /**
- * Comparison Function for Dates
- * - Date 1 < Date 2 returns -1
- * - Date 1 = Date 2 returns 0
- * - Date 1 > Date 2 returns 1
+ * @module compareDates
+ */
+
+/**
+ * @function
+ * @name compareDates
+ * @description Comparison Function for Dates
  * @param {Object} date1 Date 1
  * @param {Object} date2 Date 2
+ * @returns -1 if date1 < date2, 0 if date1 == date2, 1 if date1 > date2
  */
 function compareDates(date1, date2) {
-    /* Start Date */
     // Year
     if (date1.year < date2.year) {
         return -1;
